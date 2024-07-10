@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-log-reader
+  namespace: dev-team
+rules:
+#This means each and every group user can access which means the user able to create any resource
+- apiGroups:
+    - "" (or) v1
+  resources:  #We have given full access above in apiGroups and now we are defining resource vise permission using resources
+  - pods
+  - pods/log
+  verbs: ["get", "list"]
+- apiGroups:
+    - "" (or) apps/v1
+  resources:  #
+  - Deployments
+  verbs: ["get", "list"]
+
+
+#We can also provide each group name seperately
+- apiGroups:
+    - v1  #He can create all resources in v1 (We have given full previliges)
+    - apps/v1  #He can create all resources in apps/v1
+    - networking.k8s.io/v1  #He can create all resources in this api version
+    - storage.k8s.io/v1 #He can create all resources in this api version
